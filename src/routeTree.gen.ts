@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminEquiposRouteImport } from './routes/_authenticated/admin.equipos'
+import { Route as AuthenticatedAdminCalendarioRouteImport } from './routes/_authenticated/admin.calendario'
 import { Route as AuthenticatedAdminAgendaRouteImport } from './routes/_authenticated/admin.agenda'
 
 const AuthRoute = AuthRouteImport.update({
@@ -47,6 +48,12 @@ const AuthenticatedAdminEquiposRoute =
     path: '/equipos',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminCalendarioRoute =
+  AuthenticatedAdminCalendarioRouteImport.update({
+    id: '/calendario',
+    path: '/calendario',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminAgendaRoute =
   AuthenticatedAdminAgendaRouteImport.update({
     id: '/agenda',
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
+  '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/admin/equipos': typeof AuthenticatedAdminEquiposRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
+  '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/admin/equipos': typeof AuthenticatedAdminEquiposRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -76,6 +85,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/admin/agenda': typeof AuthenticatedAdminAgendaRoute
+  '/_authenticated/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/_authenticated/admin/equipos': typeof AuthenticatedAdminEquiposRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -86,10 +96,17 @@ export interface FileRouteTypes {
     | '/auth'
     | '/admin'
     | '/admin/agenda'
+    | '/admin/calendario'
     | '/admin/equipos'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/admin/agenda' | '/admin/equipos' | '/admin'
+  to:
+    | '/'
+    | '/auth'
+    | '/admin/agenda'
+    | '/admin/calendario'
+    | '/admin/equipos'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -97,6 +114,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/admin'
     | '/_authenticated/admin/agenda'
+    | '/_authenticated/admin/calendario'
     | '/_authenticated/admin/equipos'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -151,6 +169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminEquiposRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/calendario': {
+      id: '/_authenticated/admin/calendario'
+      path: '/calendario'
+      fullPath: '/admin/calendario'
+      preLoaderRoute: typeof AuthenticatedAdminCalendarioRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/agenda': {
       id: '/_authenticated/admin/agenda'
       path: '/agenda'
@@ -163,12 +188,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAgendaRoute: typeof AuthenticatedAdminAgendaRoute
+  AuthenticatedAdminCalendarioRoute: typeof AuthenticatedAdminCalendarioRoute
   AuthenticatedAdminEquiposRoute: typeof AuthenticatedAdminEquiposRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAgendaRoute: AuthenticatedAdminAgendaRoute,
+  AuthenticatedAdminCalendarioRoute: AuthenticatedAdminCalendarioRoute,
   AuthenticatedAdminEquiposRoute: AuthenticatedAdminEquiposRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
