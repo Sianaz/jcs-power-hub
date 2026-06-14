@@ -14,16 +14,222 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      citas: {
+        Row: {
+          cliente_id: string | null
+          created_at: string
+          direccion: string | null
+          equipo_id: string | null
+          estado: Database["public"]["Enums"]["cita_estado"]
+          fecha_hora: string
+          id: string
+          nombre_cliente: string
+          notas: string | null
+          problema: string
+          telefono: string
+          tipo_equipo: string
+          tipo_servicio: Database["public"]["Enums"]["tipo_servicio"]
+          updated_at: string
+        }
+        Insert: {
+          cliente_id?: string | null
+          created_at?: string
+          direccion?: string | null
+          equipo_id?: string | null
+          estado?: Database["public"]["Enums"]["cita_estado"]
+          fecha_hora: string
+          id?: string
+          nombre_cliente: string
+          notas?: string | null
+          problema: string
+          telefono: string
+          tipo_equipo: string
+          tipo_servicio?: Database["public"]["Enums"]["tipo_servicio"]
+          updated_at?: string
+        }
+        Update: {
+          cliente_id?: string | null
+          created_at?: string
+          direccion?: string | null
+          equipo_id?: string | null
+          estado?: Database["public"]["Enums"]["cita_estado"]
+          fecha_hora?: string
+          id?: string
+          nombre_cliente?: string
+          notas?: string | null
+          problema?: string
+          telefono?: string
+          tipo_equipo?: string
+          tipo_servicio?: Database["public"]["Enums"]["tipo_servicio"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "citas_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "citas_equipo_id_fkey"
+            columns: ["equipo_id"]
+            isOneToOne: false
+            referencedRelation: "equipos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clientes: {
+        Row: {
+          created_at: string
+          direccion: string | null
+          id: string
+          nombre: string
+          telefono: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          direccion?: string | null
+          id?: string
+          nombre: string
+          telefono: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          direccion?: string | null
+          id?: string
+          nombre?: string
+          telefono?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      equipos: {
+        Row: {
+          cliente_id: string
+          created_at: string
+          estado: Database["public"]["Enums"]["equipo_estado"]
+          id: string
+          modelo: string | null
+          nombre: string
+          notas: string | null
+          proxima_revision: string | null
+          ultima_revision: string | null
+          updated_at: string
+        }
+        Insert: {
+          cliente_id: string
+          created_at?: string
+          estado?: Database["public"]["Enums"]["equipo_estado"]
+          id?: string
+          modelo?: string | null
+          nombre: string
+          notas?: string | null
+          proxima_revision?: string | null
+          ultima_revision?: string | null
+          updated_at?: string
+        }
+        Update: {
+          cliente_id?: string
+          created_at?: string
+          estado?: Database["public"]["Enums"]["equipo_estado"]
+          id?: string
+          modelo?: string | null
+          nombre?: string
+          notas?: string | null
+          proxima_revision?: string | null
+          ultima_revision?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "equipos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tareas: {
+        Row: {
+          completada: boolean
+          created_at: string
+          descripcion: string
+          equipo_id: string
+          id: string
+        }
+        Insert: {
+          completada?: boolean
+          created_at?: string
+          descripcion: string
+          equipo_id: string
+          id?: string
+        }
+        Update: {
+          completada?: boolean
+          created_at?: string
+          descripcion?: string
+          equipo_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tareas_equipo_id_fkey"
+            columns: ["equipo_id"]
+            isOneToOne: false
+            referencedRelation: "equipos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
+      cita_estado:
+        | "pendiente"
+        | "confirmada"
+        | "en_camino"
+        | "completada"
+        | "cancelada"
+      equipo_estado: "ok" | "atencion" | "urgente"
+      tipo_servicio: "domicilio" | "taller"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +356,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+      cita_estado: [
+        "pendiente",
+        "confirmada",
+        "en_camino",
+        "completada",
+        "cancelada",
+      ],
+      equipo_estado: ["ok", "atencion", "urgente"],
+      tipo_servicio: ["domicilio", "taller"],
+    },
   },
 } as const
