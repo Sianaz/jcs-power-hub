@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
 
-const nav = [
+type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean };
+const nav: NavItem[] = [
   { to: "/admin", label: "Resumen", icon: LayoutDashboard, exact: true },
   { to: "/admin/agenda", label: "Agenda de hoy", icon: CalendarDays },
   { to: "/admin/equipos", label: "Equipos y tareas", icon: Wrench },
   { to: "/admin/calendario", label: "Calendario", icon: CalendarRange },
-] as const;
+];
 
 export function AdminShell({ children, title }: { children: React.ReactNode; title: string }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
