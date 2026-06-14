@@ -9,13 +9,23 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { submitCitaPublica } from "@/lib/citas.functions";
 
+type CitaPayload = {
+  nombre: string;
+  telefono: string;
+  tipo_equipo: string;
+  problema: string;
+  tipo_servicio: "domicilio" | "taller";
+  direccion: string | null;
+  fecha_hora: string;
+};
+
 export function RequestForm() {
   const submit = useServerFn(submitCitaPublica);
   const [tipoServicio, setTipoServicio] = useState<"domicilio" | "taller">("domicilio");
   const [tipoEquipo, setTipoEquipo] = useState<string>("excavadora");
 
   const mutation = useMutation({
-    mutationFn: (data: Parameters<typeof submit>[0]["data"]) => submit({ data }),
+    mutationFn: (data: CitaPayload) => submit({ data }),
     onSuccess: () => {
       toast.success("¡Solicitud enviada! Te contactaremos pronto.");
       (document.getElementById("form-cita") as HTMLFormElement | null)?.reset();
