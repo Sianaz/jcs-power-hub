@@ -1,30 +1,35 @@
-import { Truck, Zap, ShieldCheck, MapPin, Wrench } from "lucide-react";
+import { Truck, Zap, Cpu, Gauge, Cable, MapPin } from "lucide-react";
 
-const services = [
+export const services = [
   {
     icon: Truck,
-    title: "Reparación de Equipo Pesado",
-    desc: "Excavadoras, tractores, cargadores frontales y más.",
+    title: "Equipo Pesado",
+    desc: "Excavadoras, tractores, bulldozers, cargadores frontales, retroexcavadoras y camiones.",
   },
   {
     icon: Zap,
     title: "Generación Eléctrica",
-    desc: "Plantas eléctricas y generadores de cualquier capacidad.",
+    desc: "Plantas eléctricas y generadores industriales de cualquier marca y capacidad.",
   },
   {
-    icon: ShieldCheck,
-    title: "Mantenimiento Preventivo",
-    desc: "Revisiones programadas para evitar fallas costosas.",
+    icon: Cpu,
+    title: "Programación de Computadoras",
+    desc: "Reprogramación de ECU, módulos y unidades de control de motores diésel.",
+  },
+  {
+    icon: Gauge,
+    title: "Calibración",
+    desc: "Calibración de inyectores, bombas, sensores y sistemas hidráulicos.",
+  },
+  {
+    icon: Cable,
+    title: "Diagnóstico Eléctrico",
+    desc: "Detección y reparación de fallas eléctricas, arneses y sistemas de control.",
   },
   {
     icon: MapPin,
     title: "Servicio a Domicilio",
-    desc: "Vamos hasta donde está tu equipo, listos para trabajar.",
-  },
-  {
-    icon: Wrench,
-    title: "Recepción en Taller",
-    desc: "Trae tu equipo y lo atendemos de inmediato en nuestras instalaciones.",
+    desc: "Llegamos hasta donde está tu equipo con herramienta y laptop de diagnóstico.",
   },
 ];
 

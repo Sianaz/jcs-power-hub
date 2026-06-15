@@ -2,77 +2,60 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "Inicio", to: "/", hash: undefined as string | undefined },
-  { label: "Servicios", to: "/", hash: "servicios" },
-  { label: "¿Cómo funciona?", to: "/", hash: "como-funciona" },
-  { label: "Contacto", to: "/", hash: "contacto" },
+  { label: "Inicio", to: "/" as const },
+  { label: "Servicios", to: "/servicios" as const },
+  { label: "¿Cómo funciona?", to: "/como-funciona" as const },
+  { label: "Contacto", to: "/contacto" as const },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-brand-ink/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6">
-        <Link to="/" className="flex items-center gap-3">
-          <Logo className="h-12 w-12 md:h-14 md:w-14" />
-          <div className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-base font-bold uppercase tracking-wide text-foreground">
-              Servicios Técnicos JC&apos;S
-            </span>
-            <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
-              Equipo Pesado · Generación Eléctrica
-            </span>
-          </div>
+        <Link to="/" className="flex items-center" aria-label="JC'S Servicios Técnicos">
+          <Logo className="h-14 w-14 md:h-16 md:w-16" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
-            <a
+            <Link
               key={l.label}
-              href={l.hash ? `#${l.hash}` : "/"}
-              className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
+              to={l.to}
+              activeOptions={{ exact: true }}
+              activeProps={{ className: "text-brand-yellow" }}
+              className="rounded-md px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white/80 transition-colors hover:text-brand-yellow"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
-          <a href="#agendar" className="ml-2">
-            <Button className="bg-brand-yellow text-brand-ink hover:bg-brand-yellow/90 font-semibold uppercase tracking-wide">
-              Agendar visita
-            </Button>
-          </a>
         </nav>
 
         <button
           aria-label="Menú"
           onClick={() => setOpen((o) => !o)}
-          className="rounded-md p-2 text-foreground md:hidden"
+          className="rounded-md p-2 text-white md:hidden"
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
+        <div className="border-t border-white/10 bg-brand-ink md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
             {links.map((l) => (
-              <a
+              <Link
                 key={l.label}
-                href={l.hash ? `#${l.hash}` : "/"}
+                to={l.to}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2 text-base font-medium text-foreground hover:bg-secondary"
+                className="rounded-md px-3 py-3 text-base font-semibold uppercase tracking-wide text-white hover:bg-white/5 hover:text-brand-yellow"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a href="#agendar" onClick={() => setOpen(false)}>
-              <Button className="mt-2 w-full bg-brand-yellow text-brand-ink hover:bg-brand-yellow/90 font-semibold uppercase">
-                Agendar visita
-              </Button>
-            </a>
           </nav>
         </div>
       )}
