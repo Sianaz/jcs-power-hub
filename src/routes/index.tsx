@@ -3,6 +3,9 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Hero } from "@/components/site/Hero";
 import { ServicesSection } from "@/components/site/ServicesSection";
+import { BrandsSection } from "@/components/site/BrandsSection";
+import { WhyUsSection } from "@/components/site/WhyUsSection";
+import { WorkGallerySection } from "@/components/site/WorkGallerySection";
 import { HowItWorksSection } from "@/components/site/HowItWorksSection";
 import { RequestForm } from "@/components/site/RequestForm";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
@@ -25,7 +28,10 @@ function Index() {
       <Header />
       <main>
         <Hero />
+        <BrandsSection />
         <ServicesSection />
+        <WhyUsSection />
+        <WorkGallerySection />
         <HowItWorksSection />
         <RequestForm />
       </main>
