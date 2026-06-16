@@ -13,11 +13,14 @@ type CitaPayload = {
   nombre: string;
   telefono: string;
   tipo_equipo: string;
+  serie_modelo: string | null;
   problema: string;
   tipo_servicio: "domicilio" | "taller";
   direccion: string | null;
   fecha_hora: string;
 };
+
+const TECNICO_WHATSAPP = "50764421260";
 
 export function RequestForm() {
   const submit = useServerFn(submitCitaPublica);
@@ -26,8 +29,24 @@ export function RequestForm() {
 
   const mutation = useMutation({
     mutationFn: (data: CitaPayload) => submit({ data }),
-    onSuccess: () => {
+    onSuccess: (_res, vars) => {
       toast.success("¡Solicitud enviada! Te contactaremos pronto.");
+      const fechaTxt = vars.fecha_hora
+        ? new Date(vars.fecha_hora).toLocaleString("es-PA", { dateStyle: "full", timeStyle: "short" })
+        : "—";
+      const lines = [
+        "*Nueva solicitud de servicio — JC'S*",
+        `*Cliente:* ${vars.nombre}`,
+        `*Teléfono:* ${vars.telefono}`,
+        `*Equipo:* ${vars.tipo_equipo}`,
+        vars.serie_modelo ? `*Serie/Modelo:* ${vars.serie_modelo}` : null,
+        `*Servicio:* ${vars.tipo_servicio === "domicilio" ? "A domicilio" : "En taller"}`,
+        vars.direccion ? `*Dirección:* ${vars.direccion}` : null,
+        `*Fecha preferida:* ${fechaTxt}`,
+        `*Problema:* ${vars.problema}`,
+      ].filter(Boolean).join("\n");
+      const url = `https://wa.me/${TECNICO_WHATSAPP}?text=${encodeURIComponent(lines)}`;
+      window.open(url, "_blank", "noopener");
       (document.getElementById("form-cita") as HTMLFormElement | null)?.reset();
       setTipoServicio("domicilio");
       setTipoEquipo("excavadora");
@@ -38,10 +57,12 @@ export function RequestForm() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const serie = String(fd.get("serie_modelo") ?? "").trim();
     mutation.mutate({
       nombre: String(fd.get("nombre") ?? ""),
       telefono: String(fd.get("telefono") ?? ""),
       tipo_equipo: tipoEquipo === "otro" ? String(fd.get("tipo_equipo_otro") ?? "Otro") : tipoEquipo,
+      serie_modelo: serie ? serie : null,
       problema: String(fd.get("problema") ?? ""),
       tipo_servicio: tipoServicio,
       direccion: tipoServicio === "domicilio" ? String(fd.get("direccion") ?? "") : null,
@@ -86,12 +107,32 @@ export function RequestForm() {
                   <SelectItem value="camion">Camión</SelectItem>
                   <SelectItem value="tractor">Tractor</SelectItem>
                   <SelectItem value="cargador">Cargador frontal</SelectItem>
+                  <SelectItem value="retroexcavadora">Retroexcavadora</SelectItem>
+                  <SelectItem value="bulldozer">Bulldozer</SelectItem>
+                  <SelectItem value="motoniveladora">Motoniveladora</SelectItem>
+                  <SelectItem value="compactadora">Compactadora / rodillo</SelectItem>
+                  <SelectItem value="montacargas">Montacargas</SelectItem>
+                  <SelectItem value="grua">Grúa</SelectItem>
+                  <SelectItem value="minicargador">Minicargador (Bobcat)</SelectItem>
+                  <SelectItem value="volqueta">Volqueta</SelectItem>
+                  <SelectItem value="trailer">Tráiler / cabezal</SelectItem>
+                  <SelectItem value="compresor">Compresor industrial</SelectItem>
+                  <SelectItem value="soldadora">Soldadora industrial</SelectItem>
+                  <SelectItem value="bomba">Bomba de agua / hidráulica</SelectItem>
+                  <SelectItem value="transferencia">Tablero de transferencia (ATS)</SelectItem>
+                  <SelectItem value="motor_diesel">Motor diésel</SelectItem>
+                  <SelectItem value="motor_gasolina">Motor a gasolina</SelectItem>
+                  <SelectItem value="computadora">Computadora / ECU</SelectItem>
                   <SelectItem value="otro">Otro</SelectItem>
                 </SelectContent>
               </Select>
               {tipoEquipo === "otro" && (
                 <Input className="mt-2" name="tipo_equipo_otro" placeholder="Especifica el equipo" required maxLength={60} />
               )}
+            </div>
+            <div className="sm:col-span-2">
+              <Label htmlFor="serie_modelo">Serie y modelo del equipo <span className="text-xs font-normal text-muted-foreground">(opcional)</span></Label>
+              <Input id="serie_modelo" name="serie_modelo" maxLength={120} placeholder="Ej: CAT 320D, S/N ABC12345" />
             </div>
             <div className="sm:col-span-2">
               <Label htmlFor="problema">Descripción del problema</Label>
