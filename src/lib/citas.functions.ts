@@ -5,6 +5,7 @@ const submitSchema = z.object({
   nombre: z.string().trim().min(2).max(120),
   telefono: z.string().trim().min(6).max(40),
   tipo_equipo: z.string().trim().min(1).max(60),
+  serie_modelo: z.string().trim().max(120).optional().nullable(),
   problema: z.string().trim().min(5).max(2000),
   tipo_servicio: z.enum(["domicilio", "taller"]),
   direccion: z.string().trim().max(300).optional().nullable(),
@@ -33,6 +34,7 @@ export const submitCitaPublica = createServerFn({ method: "POST" })
         tipo_servicio: data.tipo_servicio,
         fecha_hora: fechaIso,
         estado: "pendiente",
+        notas: data.serie_modelo ? `Serie/Modelo: ${data.serie_modelo}` : null,
       })
       .select()
       .single();
@@ -52,6 +54,7 @@ export const submitCitaPublica = createServerFn({ method: "POST" })
           nombre: data.nombre,
           telefono: data.telefono,
           tipo_equipo: data.tipo_equipo,
+          serie_modelo: data.serie_modelo ?? null,
           problema: data.problema,
           tipo_servicio: data.tipo_servicio,
           direccion: data.tipo_servicio === "domicilio" ? data.direccion : null,
