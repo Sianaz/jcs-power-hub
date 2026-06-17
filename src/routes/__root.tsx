@@ -82,10 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Servicios Técnicos JC'S — Equipo Pesado y Generación Eléctrica" },
       { name: "description", content: "Reparamos equipos pesados y plantas eléctricas directamente donde los necesitas. Servicio a domicilio o en taller." },
       { name: "author", content: "Servicios Técnicos JC'S" },
-      { property: "og:title", content: "Servicios Técnicos JC'S" },
-      { property: "og:description", content: "Equipo pesado y generación eléctrica. Tu maquinaria siempre en marcha." },
+      { property: "og:title", content: "Servicios Técnicos JC'S — Equipo Pesado y Generación Eléctrica" },
+      { property: "og:description", content: "Reparamos equipos pesados y plantas eléctricas directamente donde los necesitas. Servicio a domicilio o en taller." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Servicios Técnicos JC'S — Equipo Pesado y Generación Eléctrica" },
+      { name: "twitter:description", content: "Reparamos equipos pesados y plantas eléctricas directamente donde los necesitas. Servicio a domicilio o en taller." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/68714d6e-8090-45e5-82ba-d51c68be615b/id-preview-25d9652d--f363e674-0a44-4a7a-a78d-cd48072ce0e6.lovable.app-1781730891752.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/68714d6e-8090-45e5-82ba-d51c68be615b/id-preview-25d9652d--f363e674-0a44-4a7a-a78d-cd48072ce0e6.lovable.app-1781730891752.png" },
     ],
     links: [
       {
