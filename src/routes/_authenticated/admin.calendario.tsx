@@ -47,6 +47,7 @@ function CalendarioPage() {
       const { data, error } = await supabase.from("citas").select("*")
         .gte("fecha_hora", range.start.toISOString())
         .lte("fecha_hora", range.end.toISOString())
+        .neq("estado", "cancelada")
         .order("fecha_hora");
       if (error) throw error;
       return data as Cita[];
