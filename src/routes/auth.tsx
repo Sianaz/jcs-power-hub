@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/site/Logo";
 
 const ADMIN_EMAIL = "jacs196@hotmail.com";
+const LEGACY_ADMIN_EMAIL = "jacs167@hotmail.com";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -34,15 +35,22 @@ function AuthPage() {
     const email = String(fd.get("email") ?? "").trim().toLowerCase();
     const password = String(fd.get("password") ?? "");
 
-    if (email !== ADMIN_EMAIL) {
+    if (![ADMIN_EMAIL, LEGACY_ADMIN_EMAIL].includes(email)) {
       toast.error("Acceso restringido. Solo el administrador puede ingresar.");
       setLoading(false);
       return;
     }
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
+      const primaryLogin = await supabase.auth.signInWithPassword({ email, password });
+
+      if (primaryLogin.error && email === ADMIN_EMAIL) {
+        const legacyLogin = await supabase.auth.signInWithPassword({ email: LEGACY_ADMIN_EMAIL, password });
+        if (legacyLogin.error) throw primaryLogin.error;
+      } else if (primaryLogin.error) {
+        throw primaryLogin.error;
+      }
+
       router.invalidate();
       navigate({ to: "/admin", replace: true });
     } catch (err) {
