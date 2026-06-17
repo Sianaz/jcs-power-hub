@@ -11,7 +11,7 @@ export const Route = createFileRoute("/como-funciona")({
   head: () => ({
     meta: [
       { title: "¿Cómo funciona? — JC'S Servicios Técnicos" },
-      { name: "description", content: "Conoce nuestro proceso: contacto, diagnóstico, cotización, reparación y entrega." },
+      { name: "description", content: "Conoce nuestro proceso: contacto, diagnóstico, reparación y entrega." },
       { property: "og:title", content: "¿Cómo funciona? — JC'S" },
       { property: "og:description", content: "Un proceso claro y profesional para devolver tu equipo a la operación." },
     ],
@@ -22,7 +22,6 @@ export const Route = createFileRoute("/como-funciona")({
 const steps = [
   { icon: MessageSquare, title: "Nos contactas", desc: "Por WhatsApp o el formulario de contacto. Cuéntanos qué equipo es y qué falla está presentando." },
   { icon: Search, title: "Diagnóstico", desc: "Nuestro técnico revisa el equipo con scanner profesional para identificar la causa real de la falla." },
-  { icon: FileText, title: "Cotización clara", desc: "Te enviamos una cotización detallada con repuestos, tiempos y mano de obra antes de comenzar." },
   { icon: Wrench, title: "Reparación", desc: "Ejecutamos el trabajo en sitio o en taller, manteniéndote informado del avance." },
   { icon: CheckCircle2, title: "Entrega y garantía", desc: "Pruebas finales y entrega del equipo funcionando, con garantía sobre el trabajo realizado." },
 ];

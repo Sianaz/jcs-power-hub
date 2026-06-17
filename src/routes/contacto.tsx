@@ -10,7 +10,7 @@ export const Route = createFileRoute("/contacto")({
   head: () => ({
     meta: [
       { title: "Contacto — JC'S Servicios Técnicos" },
-      { name: "description", content: "Llámanos, escríbenos por WhatsApp o agenda tu visita técnica en línea. Cobertura en Panamá." },
+      { name: "description", content: "Llámanos, escríbenos por WhatsApp o agenda tu visita técnica en línea. Cobertura en Veraguas." },
       { property: "og:title", content: "Contacto — JC'S" },
       { property: "og:description", content: "Solicita servicio técnico para tu equipo pesado o planta eléctrica." },
     ],

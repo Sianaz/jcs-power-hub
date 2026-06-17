@@ -13,7 +13,7 @@ export const Route = createFileRoute("/servicios")({
   head: () => ({
     meta: [
       { title: "Servicios — JC'S Servicios Técnicos" },
-      { name: "description", content: "Reparación de equipo pesado, plantas eléctricas, programación de ECU, calibración y diagnóstico eléctrico en Panamá." },
+      { name: "description", content: "Reparación de equipo pesado, plantas eléctricas, programación de ECU, calibración y diagnóstico eléctrico en Veraguas." },
       { property: "og:title", content: "Servicios — JC'S" },
       { property: "og:description", content: "Equipo pesado, generación eléctrica, programación y diagnóstico computarizado." },
     ],
@@ -55,8 +55,8 @@ const details: Record<string, string[]> = {
   "Servicio a Domicilio": [
     "Atención en obra, finca o instalación industrial",
     "Unidad móvil con herramienta y scanner",
-    "Cotización transparente antes de iniciar",
-    "Cobertura en toda la provincia de Panamá",
+    "Diagnóstico computarizado en sitio",
+    "Cobertura en Veraguas y áreas cercanas",
   ],
 };
 
