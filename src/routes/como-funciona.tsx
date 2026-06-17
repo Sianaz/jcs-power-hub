@@ -3,7 +3,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Search, FileText, Wrench, CheckCircle2 } from "lucide-react";
+import { MessageSquare, Search, Wrench, CheckCircle2 } from "lucide-react";
 import foto3 from "@/assets/jcs_foto_3.jpeg.asset.json";
 import foto6 from "@/assets/jcs_foto_6.jpeg.asset.json";
 
