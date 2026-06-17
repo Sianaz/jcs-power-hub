@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/site/Logo";
 
-const ADMIN_EMAIL = "jacs167@hotmail.com";
+const ADMIN_EMAIL = "jacs196@hotmail.com";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
