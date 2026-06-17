@@ -3,9 +3,9 @@ import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
 
 export const CONTACT = {
-  phone: "+507 6453-1898",
-  phoneRaw: "+50764531898",
-  whatsappUrl: "https://wa.me/50764531898?text=" + encodeURIComponent(
+  phone: "+507 6442-1260",
+  phoneRaw: "+50764421260",
+  whatsappUrl: "https://wa.me/50764421260?text=" + encodeURIComponent(
     "Hola Servicios Técnicos JC'S, necesito asistencia técnica para..."
   ),
   coverage: "Panamá y áreas cercanas",
@@ -64,10 +64,10 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-4 text-xs text-white/45 md:px-6">
-          <p>© {new Date().getFullYear()} JC&apos;S Servicios Técnicos.</p>
           <a href="/admin" aria-label="Panel interno" className="opacity-40 transition-opacity hover:opacity-100 hover:text-brand-yellow">
             <Settings className="h-4 w-4" />
           </a>
+          <p>© {new Date().getFullYear()} JC&apos;S Servicios Técnicos.</p>
         </div>
       </div>
     </footer>
