@@ -19,6 +19,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminTallerRouteImport } from './routes/_authenticated/admin.taller'
+import { Route as AuthenticatedAdminDomicilioRouteImport } from './routes/_authenticated/admin.domicilio'
 import { Route as AuthenticatedAdminClientesRouteImport } from './routes/_authenticated/admin.clientes'
 import { Route as AuthenticatedAdminCalendarioRouteImport } from './routes/_authenticated/admin.calendario'
 import { Route as AuthenticatedAdminAgendaRouteImport } from './routes/_authenticated/admin.agenda'
@@ -73,6 +74,12 @@ const AuthenticatedAdminTallerRoute =
     path: '/taller',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminDomicilioRoute =
+  AuthenticatedAdminDomicilioRouteImport.update({
+    id: '/domicilio',
+    path: '/domicilio',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminClientesRoute =
   AuthenticatedAdminClientesRouteImport.update({
     id: '/clientes',
@@ -103,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/domicilio': typeof AuthenticatedAdminDomicilioRoute
   '/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -116,6 +124,7 @@ export interface FileRoutesByTo {
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/domicilio': typeof AuthenticatedAdminDomicilioRoute
   '/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -132,6 +141,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/_authenticated/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/_authenticated/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/_authenticated/admin/domicilio': typeof AuthenticatedAdminDomicilioRoute
   '/_authenticated/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/admin/agenda'
     | '/admin/calendario'
     | '/admin/clientes'
+    | '/admin/domicilio'
     | '/admin/taller'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/admin/agenda'
     | '/admin/calendario'
     | '/admin/clientes'
+    | '/admin/domicilio'
     | '/admin/taller'
     | '/admin'
   id:
@@ -176,6 +188,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/agenda'
     | '/_authenticated/admin/calendario'
     | '/_authenticated/admin/clientes'
+    | '/_authenticated/admin/domicilio'
     | '/_authenticated/admin/taller'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -262,6 +275,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTallerRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/domicilio': {
+      id: '/_authenticated/admin/domicilio'
+      path: '/domicilio'
+      fullPath: '/admin/domicilio'
+      preLoaderRoute: typeof AuthenticatedAdminDomicilioRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/clientes': {
       id: '/_authenticated/admin/clientes'
       path: '/clientes'
@@ -290,6 +310,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAgendaRoute: typeof AuthenticatedAdminAgendaRoute
   AuthenticatedAdminCalendarioRoute: typeof AuthenticatedAdminCalendarioRoute
   AuthenticatedAdminClientesRoute: typeof AuthenticatedAdminClientesRoute
+  AuthenticatedAdminDomicilioRoute: typeof AuthenticatedAdminDomicilioRoute
   AuthenticatedAdminTallerRoute: typeof AuthenticatedAdminTallerRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -298,6 +319,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAgendaRoute: AuthenticatedAdminAgendaRoute,
   AuthenticatedAdminCalendarioRoute: AuthenticatedAdminCalendarioRoute,
   AuthenticatedAdminClientesRoute: AuthenticatedAdminClientesRoute,
+  AuthenticatedAdminDomicilioRoute: AuthenticatedAdminDomicilioRoute,
   AuthenticatedAdminTallerRoute: AuthenticatedAdminTallerRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
