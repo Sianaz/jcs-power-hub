@@ -3,7 +3,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Search, FileText, Wrench, CheckCircle2 } from "lucide-react";
+import { MessageSquare, Search, Wrench, CheckCircle2 } from "lucide-react";
 import foto3 from "@/assets/jcs_foto_3.jpeg.asset.json";
 import foto6 from "@/assets/jcs_foto_6.jpeg.asset.json";
 
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/como-funciona")({
   head: () => ({
     meta: [
       { title: "¿Cómo funciona? — JC'S Servicios Técnicos" },
-      { name: "description", content: "Conoce nuestro proceso: contacto, diagnóstico, cotización, reparación y entrega." },
+      { name: "description", content: "Conoce nuestro proceso: contacto, diagnóstico, reparación y entrega." },
       { property: "og:title", content: "¿Cómo funciona? — JC'S" },
       { property: "og:description", content: "Un proceso claro y profesional para devolver tu equipo a la operación." },
     ],
@@ -22,7 +22,6 @@ export const Route = createFileRoute("/como-funciona")({
 const steps = [
   { icon: MessageSquare, title: "Nos contactas", desc: "Por WhatsApp o el formulario de contacto. Cuéntanos qué equipo es y qué falla está presentando." },
   { icon: Search, title: "Diagnóstico", desc: "Nuestro técnico revisa el equipo con scanner profesional para identificar la causa real de la falla." },
-  { icon: FileText, title: "Cotización clara", desc: "Te enviamos una cotización detallada con repuestos, tiempos y mano de obra antes de comenzar." },
   { icon: Wrench, title: "Reparación", desc: "Ejecutamos el trabajo en sitio o en taller, manteniéndote informado del avance." },
   { icon: CheckCircle2, title: "Entrega y garantía", desc: "Pruebas finales y entrega del equipo funcionando, con garantía sobre el trabajo realizado." },
 ];

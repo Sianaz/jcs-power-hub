@@ -8,7 +8,7 @@ export const CONTACT = {
   whatsappUrl: "https://wa.me/50764421260?text=" + encodeURIComponent(
     "Hola Servicios Técnicos JC'S, necesito asistencia técnica para..."
   ),
-  coverage: "Panamá y áreas cercanas",
+  coverage: "Veraguas y áreas cercanas",
 };
 
 export function Footer() {
