@@ -19,7 +19,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminTallerRouteImport } from './routes/_authenticated/admin.taller'
-import { Route as AuthenticatedAdminEquiposRouteImport } from './routes/_authenticated/admin.equipos'
+import { Route as AuthenticatedAdminDomicilioRouteImport } from './routes/_authenticated/admin.domicilio'
+import { Route as AuthenticatedAdminClientesRouteImport } from './routes/_authenticated/admin.clientes'
 import { Route as AuthenticatedAdminCalendarioRouteImport } from './routes/_authenticated/admin.calendario'
 import { Route as AuthenticatedAdminAgendaRouteImport } from './routes/_authenticated/admin.agenda'
 
@@ -73,10 +74,16 @@ const AuthenticatedAdminTallerRoute =
     path: '/taller',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminEquiposRoute =
-  AuthenticatedAdminEquiposRouteImport.update({
-    id: '/equipos',
-    path: '/equipos',
+const AuthenticatedAdminDomicilioRoute =
+  AuthenticatedAdminDomicilioRouteImport.update({
+    id: '/domicilio',
+    path: '/domicilio',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminClientesRoute =
+  AuthenticatedAdminClientesRouteImport.update({
+    id: '/clientes',
+    path: '/clientes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminCalendarioRoute =
@@ -102,7 +109,8 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
-  '/admin/equipos': typeof AuthenticatedAdminEquiposRoute
+  '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/domicilio': typeof AuthenticatedAdminDomicilioRoute
   '/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -115,7 +123,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
-  '/admin/equipos': typeof AuthenticatedAdminEquiposRoute
+  '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/domicilio': typeof AuthenticatedAdminDomicilioRoute
   '/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -131,7 +140,8 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/_authenticated/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
-  '/_authenticated/admin/equipos': typeof AuthenticatedAdminEquiposRoute
+  '/_authenticated/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/_authenticated/admin/domicilio': typeof AuthenticatedAdminDomicilioRoute
   '/_authenticated/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -147,7 +157,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/agenda'
     | '/admin/calendario'
-    | '/admin/equipos'
+    | '/admin/clientes'
+    | '/admin/domicilio'
     | '/admin/taller'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -160,7 +171,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/agenda'
     | '/admin/calendario'
-    | '/admin/equipos'
+    | '/admin/clientes'
+    | '/admin/domicilio'
     | '/admin/taller'
     | '/admin'
   id:
@@ -175,7 +187,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/admin/agenda'
     | '/_authenticated/admin/calendario'
-    | '/_authenticated/admin/equipos'
+    | '/_authenticated/admin/clientes'
+    | '/_authenticated/admin/domicilio'
     | '/_authenticated/admin/taller'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -262,11 +275,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTallerRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin/equipos': {
-      id: '/_authenticated/admin/equipos'
-      path: '/equipos'
-      fullPath: '/admin/equipos'
-      preLoaderRoute: typeof AuthenticatedAdminEquiposRouteImport
+    '/_authenticated/admin/domicilio': {
+      id: '/_authenticated/admin/domicilio'
+      path: '/domicilio'
+      fullPath: '/admin/domicilio'
+      preLoaderRoute: typeof AuthenticatedAdminDomicilioRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/clientes': {
+      id: '/_authenticated/admin/clientes'
+      path: '/clientes'
+      fullPath: '/admin/clientes'
+      preLoaderRoute: typeof AuthenticatedAdminClientesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/calendario': {
@@ -289,7 +309,8 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAgendaRoute: typeof AuthenticatedAdminAgendaRoute
   AuthenticatedAdminCalendarioRoute: typeof AuthenticatedAdminCalendarioRoute
-  AuthenticatedAdminEquiposRoute: typeof AuthenticatedAdminEquiposRoute
+  AuthenticatedAdminClientesRoute: typeof AuthenticatedAdminClientesRoute
+  AuthenticatedAdminDomicilioRoute: typeof AuthenticatedAdminDomicilioRoute
   AuthenticatedAdminTallerRoute: typeof AuthenticatedAdminTallerRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -297,7 +318,8 @@ interface AuthenticatedAdminRouteChildren {
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAgendaRoute: AuthenticatedAdminAgendaRoute,
   AuthenticatedAdminCalendarioRoute: AuthenticatedAdminCalendarioRoute,
-  AuthenticatedAdminEquiposRoute: AuthenticatedAdminEquiposRoute,
+  AuthenticatedAdminClientesRoute: AuthenticatedAdminClientesRoute,
+  AuthenticatedAdminDomicilioRoute: AuthenticatedAdminDomicilioRoute,
   AuthenticatedAdminTallerRoute: AuthenticatedAdminTallerRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
