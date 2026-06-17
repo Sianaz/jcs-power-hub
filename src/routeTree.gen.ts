@@ -19,7 +19,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminTallerRouteImport } from './routes/_authenticated/admin.taller'
-import { Route as AuthenticatedAdminEquiposRouteImport } from './routes/_authenticated/admin.equipos'
 import { Route as AuthenticatedAdminCalendarioRouteImport } from './routes/_authenticated/admin.calendario'
 import { Route as AuthenticatedAdminAgendaRouteImport } from './routes/_authenticated/admin.agenda'
 
@@ -73,12 +72,6 @@ const AuthenticatedAdminTallerRoute =
     path: '/taller',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminEquiposRoute =
-  AuthenticatedAdminEquiposRouteImport.update({
-    id: '/equipos',
-    path: '/equipos',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
 const AuthenticatedAdminCalendarioRoute =
   AuthenticatedAdminCalendarioRouteImport.update({
     id: '/calendario',
@@ -102,7 +95,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
-  '/admin/equipos': typeof AuthenticatedAdminEquiposRoute
   '/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -115,7 +107,6 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
-  '/admin/equipos': typeof AuthenticatedAdminEquiposRoute
   '/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -131,7 +122,6 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/admin/agenda': typeof AuthenticatedAdminAgendaRoute
   '/_authenticated/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
-  '/_authenticated/admin/equipos': typeof AuthenticatedAdminEquiposRoute
   '/_authenticated/admin/taller': typeof AuthenticatedAdminTallerRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -147,7 +137,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/agenda'
     | '/admin/calendario'
-    | '/admin/equipos'
     | '/admin/taller'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -160,7 +149,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/agenda'
     | '/admin/calendario'
-    | '/admin/equipos'
     | '/admin/taller'
     | '/admin'
   id:
@@ -175,7 +163,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/admin/agenda'
     | '/_authenticated/admin/calendario'
-    | '/_authenticated/admin/equipos'
     | '/_authenticated/admin/taller'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -262,13 +249,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTallerRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin/equipos': {
-      id: '/_authenticated/admin/equipos'
-      path: '/equipos'
-      fullPath: '/admin/equipos'
-      preLoaderRoute: typeof AuthenticatedAdminEquiposRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
     '/_authenticated/admin/calendario': {
       id: '/_authenticated/admin/calendario'
       path: '/calendario'
@@ -289,7 +269,6 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAgendaRoute: typeof AuthenticatedAdminAgendaRoute
   AuthenticatedAdminCalendarioRoute: typeof AuthenticatedAdminCalendarioRoute
-  AuthenticatedAdminEquiposRoute: typeof AuthenticatedAdminEquiposRoute
   AuthenticatedAdminTallerRoute: typeof AuthenticatedAdminTallerRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -297,7 +276,6 @@ interface AuthenticatedAdminRouteChildren {
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAgendaRoute: AuthenticatedAdminAgendaRoute,
   AuthenticatedAdminCalendarioRoute: AuthenticatedAdminCalendarioRoute,
-  AuthenticatedAdminEquiposRoute: AuthenticatedAdminEquiposRoute,
   AuthenticatedAdminTallerRoute: AuthenticatedAdminTallerRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }

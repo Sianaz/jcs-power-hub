@@ -1,5 +1,5 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
-import { LayoutDashboard, CalendarDays, Wrench, CalendarRange, LogOut, Menu, X, Hammer } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, Home, CalendarRange, LogOut, Menu, X, Hammer } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "@/components/site/Logo";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,8 @@ type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; exact?
 const nav: NavItem[] = [
   { to: "/admin", label: "Resumen", icon: LayoutDashboard, exact: true },
   { to: "/admin/agenda", label: "Agenda de hoy", icon: CalendarDays },
-  { to: "/admin/equipos", label: "Clientes y equipos", icon: Wrench },
+  { to: "/admin/clientes", label: "Clientes", icon: Users },
+  { to: "/admin/domicilio", label: "Equipos a domicilio", icon: Home },
   { to: "/admin/taller", label: "Equipos de taller", icon: Hammer },
   { to: "/admin/calendario", label: "Calendario", icon: CalendarRange },
 ];
