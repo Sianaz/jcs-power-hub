@@ -154,6 +154,39 @@ export type Database = {
           },
         ]
       }
+      equipos_taller: {
+        Row: {
+          created_at: string
+          estado: Database["public"]["Enums"]["equipo_estado"]
+          id: string
+          modelo: string | null
+          nombre: string
+          notas: string | null
+          serie: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          estado?: Database["public"]["Enums"]["equipo_estado"]
+          id?: string
+          modelo?: string | null
+          nombre: string
+          notas?: string | null
+          serie?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          estado?: Database["public"]["Enums"]["equipo_estado"]
+          id?: string
+          modelo?: string | null
+          nombre?: string
+          notas?: string | null
+          serie?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tareas: {
         Row: {
           completada: boolean
@@ -182,6 +215,38 @@ export type Database = {
             columns: ["equipo_id"]
             isOneToOne: false
             referencedRelation: "equipos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tareas_taller: {
+        Row: {
+          completada: boolean
+          created_at: string
+          descripcion: string
+          equipo_taller_id: string
+          id: string
+        }
+        Insert: {
+          completada?: boolean
+          created_at?: string
+          descripcion: string
+          equipo_taller_id: string
+          id?: string
+        }
+        Update: {
+          completada?: boolean
+          created_at?: string
+          descripcion?: string
+          equipo_taller_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tareas_taller_equipo_taller_id_fkey"
+            columns: ["equipo_taller_id"]
+            isOneToOne: false
+            referencedRelation: "equipos_taller"
             referencedColumns: ["id"]
           },
         ]
