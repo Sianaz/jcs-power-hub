@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { Plus, Trash2, CheckCircle2, Circle } from "lucide-react";
+import { Plus, Trash2, CheckCircle2, Circle, Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,7 @@ const semaforo: Record<Estado, { bg: string; label: string }> = {
 
 function EquiposPage() {
   const qc = useQueryClient();
+  const [q, setQ] = useState("");
 
   const { data: equipos = [] } = useQuery({
     queryKey: ["equipos"],
@@ -45,7 +46,7 @@ function EquiposPage() {
   const { data: clientes = [] } = useQuery({
     queryKey: ["clientes"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("clientes").select("id, nombre").order("nombre");
+      const { data, error } = await supabase.from("clientes").select("id, nombre, telefono, direccion").order("nombre");
       if (error) throw error;
       return data;
     },
@@ -61,27 +62,69 @@ function EquiposPage() {
     return () => { supabase.removeChannel(ch); };
   }, [qc]);
 
+  const term = q.trim().toLowerCase();
+  const clientesFiltrados = useMemo(() => {
+    if (!term) return clientes;
+    return clientes.filter((c) =>
+      [c.nombre, c.telefono ?? "", c.direccion ?? ""].some((v) => v.toLowerCase().includes(term))
+    );
+  }, [clientes, term]);
+  const equiposFiltrados = useMemo(() => {
+    if (!term) return equipos;
+    return equipos.filter((e) =>
+      [e.nombre, e.modelo ?? "", e.cliente?.nombre ?? ""].some((v) => v.toLowerCase().includes(term))
+    );
+  }, [equipos, term]);
+
   return (
-    <AdminShell title="Equipos y tareas">
+    <AdminShell title="Clientes y equipos">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-muted-foreground">{equipos.length} equipos registrados</p>
-        <div className="flex gap-2">
-          <NewClientDialog />
-          <NewEquipoDialog clientes={clientes} />
+        <div className="relative w-full max-w-sm">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Buscar cliente, teléfono o equipo..."
+            className="pl-9"
+          />
         </div>
+        <NewClientDialog />
       </div>
 
-      <div className="mt-5 grid gap-4 lg:grid-cols-2">
-        {equipos.map((eq) => (
-          <EquipoCard key={eq.id} equipo={eq} />
-        ))}
-        {equipos.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center lg:col-span-2">
-            <p className="font-display text-lg font-semibold">Aún no hay equipos registrados</p>
-            <p className="mt-2 text-sm text-muted-foreground">Crea un cliente y agrega su primer equipo.</p>
-          </div>
-        )}
-      </div>
+      <section className="mt-6">
+        <h2 className="font-display text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          Clientes ({clientesFiltrados.length})
+        </h2>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {clientesFiltrados.map((c) => (
+            <div key={c.id} className="rounded-xl border border-border bg-card p-3">
+              <p className="font-display font-semibold">{c.nombre}</p>
+              <p className="text-xs text-muted-foreground">{c.telefono}</p>
+              {c.direccion && <p className="text-xs text-muted-foreground truncate">{c.direccion}</p>}
+            </div>
+          ))}
+          {clientesFiltrados.length === 0 && (
+            <p className="text-sm text-muted-foreground sm:col-span-2 lg:col-span-3">Sin resultados.</p>
+          )}
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="font-display text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          Equipos de clientes ({equiposFiltrados.length})
+        </h2>
+        <p className="mt-1 text-xs text-muted-foreground">Los equipos se registran automáticamente cuando un cliente solicita un servicio.</p>
+        <div className="mt-3 grid gap-4 lg:grid-cols-2">
+          {equiposFiltrados.map((eq) => (
+            <EquipoCard key={eq.id} equipo={eq} />
+          ))}
+          {equiposFiltrados.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center lg:col-span-2">
+              <p className="text-sm text-muted-foreground">Aún no hay equipos de clientes.</p>
+            </div>
+          )}
+        </div>
+      </section>
     </AdminShell>
   );
 }
