@@ -4,18 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
   beforeLoad: async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) throw redirect({ to: "/auth" });
-
-    const { data: roles } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", data.user.id);
-
-    const isAdmin = (roles ?? []).some((r) => r.role === "admin");
-    if (!isAdmin) throw redirect({ to: "/auth" });
-
-    return { user: data.user };
+    const { data } = await supabase.auth.getSession();
+    if (!data.session?.user) throw redirect({ to: "/auth" });
+    return { user: data.session.user };
   },
   component: () => <Outlet />,
 });

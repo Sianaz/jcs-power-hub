@@ -1,4 +1,4 @@
-const brands = ["Caterpillar", "Volvo", "Komatsu", "John Deere", "Olympian", "Cummins", "Hyundai", "Kenworth"];
+const brands = ["Caterpillar", "Volvo", "Komatsu", "John Deere", "Cummins", "Kenworth"];
 
 export function BrandsSection() {
   return (
